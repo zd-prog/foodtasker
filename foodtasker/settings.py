@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'coreapp',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,13 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.application
+
+cloudinary.config(
+    cloud_name = 'dkiay6rdo',
+    api_key = '126294798929523',
+    api_secret = 'GJLgIv9k4o2oukYhOIXMiw5AeJI',
+)
