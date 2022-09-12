@@ -131,7 +131,7 @@ LOGIN_REDIRECT_URL = '/'
 
 import cloudinary
 import cloudinary.uploader
-import cloudinary.application
+# import cloudinary.application
 
 cloudinary.config(
     cloud_name = 'dkiay6rdo',
