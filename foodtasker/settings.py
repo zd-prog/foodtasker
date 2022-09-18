@@ -146,17 +146,33 @@ cloudinary.config(
 )
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookAppOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+
+    # django-rest-framework-social-oauth2
+    'rest_framework_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend'
 )
 
 # Fasebook configuration
-SOCIAL_AUTH_FACEBOOK_OAUTH_KEY = '654600062501568'
-SOCIAL_AUTH_FACEBOOK_OAUTH_SECRET = '41ad942e8c4de4b3042a3c9c8dab48af'
+SOCIAL_AUTH_FACEBOOK_KEY = '654600062501568'
+SOCIAL_AUTH_FACEBOOK_SECRET = '41ad942e8c4de4b3042a3c9c8dab48af'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id, name, email, picture,type(large)'}
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id, name, email, picture.type(large)'}
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'coreapp.social_auth_pipeline.create_user_by_type',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
 # Configure Heroku
 import django_on_heroku
 django_on_heroku.settings(locals())
