@@ -13,18 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from xml.etree.ElementInclude import include
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from coreapp import views
 
 urlpatterns = [
+    # Web View - Admin
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
 
+    #Web View - Restaurant
     path('restaurant/sign_in/', auth_views.LoginView.as_view(template_name='restaurant/sign_in.html'), name='restaurant_sign_in'),
     path('restaurant/sign_out/', auth_views.LogoutView.as_view(next_page='/'), name='restaurant_sign_out'),
     path('restaurant/sign_up', views.restaurant_sign_up, name='restaurant_sign_up'),
     path('restaurant/', views.restaurant_home, name='restaurant_home'),
-
+    
+    # APIs
+    # /convert-token (sign-in/sign-up), /revoke-token (sign-out)
+    path('api/social/', include('rest_framework_social_oauth2.urls'))
 ]
