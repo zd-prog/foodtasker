@@ -2,7 +2,13 @@
 
 {% block sidebar %}
 
-Hi {{request.user.first_name}}
+<div class="text-center mt-4">
+  <img src="{{ request.user.restaurant.logo.url }}" class="rounded-circle" width="80" height="80" alt="">
+  <br><br>
+  <h5>{{request.user.get_full_name}}</h5>  
+  <h6>{{request.user.restaurant.name}}</h6>
+
+</div>
 <hr>
 
 <a href="{% url 'restaurant_account' %}">Account</a>
@@ -11,7 +17,7 @@ Hi {{request.user.first_name}}
 -
 <a href="{% url 'restaurant_order' %}">Orders</a>
 -
-<a href="{% url 'restaurant_areport' %}">Report</a>
+<a href="{% url 'restaurant_report' %}">Report</a>
 -
 <a href="{% url 'restaurant_sign_out' %}">Log out</a>
 -

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,6 +13,9 @@
       crossorigin="anonymous"
     />
 
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Varela+Round" type="text/css">
+
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
       integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -24,12 +28,21 @@
     ></script>
   </head>
   <body>
-    {% block sidebar %}
-    <!-- Display sidebar code here -->
-    {% endblock %} 
-    
-    {% block body %}
-    <!-- Display body code here -->
-    {% endblock %}
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2 sidebar">
+          {% block sidebar %}
+          <!-- Display sidebar code here -->
+          {% endblock %} 
+        </div>
+
+        <div class="col-md-10 offset-md-2 content">
+          {% block body %}
+          <!-- Display body code here -->
+          {% endblock %}
+        </div>
+      </div>
+    </div>
   </body>
 </html>
