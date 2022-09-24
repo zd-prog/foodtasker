@@ -1,0 +1,19 @@
+{% extends 'restaurant/layout.html' %}
+
+{% block sidebar %}
+
+Hi {{request.user.first_name}}
+<hr>
+
+<a href="{% url 'restaurant_account' %}">Account</a>
+-
+<a href="{% url 'restaurant_meal' %}">Meals</a>
+-
+<a href="{% url 'restaurant_order' %}">Orders</a>
+-
+<a href="{% url 'restaurant_areport' %}">Report</a>
+-
+<a href="{% url 'restaurant_sign_out' %}">Log out</a>
+-
+
+{% endblock  %}
