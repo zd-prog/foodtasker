@@ -74,3 +74,19 @@ body {
   background-color: #097d53;
   color: white;
 }
+
+/* CARD */
+.card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #f8f9fc;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.card-body {
+  color: #919295;
+}
+
+.text-black {
+  color: black;
+}
