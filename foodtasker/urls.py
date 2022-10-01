@@ -32,6 +32,7 @@ urlpatterns = [
 
     path('restaurant/account/', views.restaurant_account, name='restaurant_account'),
     path('restaurant/meal/', views.restaurant_meal, name='restaurant_meal'),
+    path('restaurant/meal/add', views.restaurant_add_meal, name='restaurant_add_meal'),
     path('restaurant/order/', views.restaurant_order, name='restaurant_order'),
     path('restaurant/report/', views.restaurant_report, name='restaurant_report'),
     
