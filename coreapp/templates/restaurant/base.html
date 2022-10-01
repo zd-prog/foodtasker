@@ -11,15 +11,19 @@
 </div>
 <hr>
 
-<a href="{% url 'restaurant_account' %}">Account</a>
--
-<a href="{% url 'restaurant_meal' %}">Meals</a>
--
-<a href="{% url 'restaurant_order' %}">Orders</a>
--
-<a href="{% url 'restaurant_report' %}">Report</a>
--
-<a href="{% url 'restaurant_sign_out' %}">Log out</a>
--
+<div class="list-group">
+  <span class="text-uppercase">Dashboard</span>
+
+  <a href="{% url 'restaurant_meal' %}" class="list-group-item">Meals</a>
+  <a href="{% url 'restaurant_order' %}" class="list-group-item">Orders</a>
+  <a href="{% url 'restaurant_report' %}" class="list-group-item">Report</a>
+
+  <span class="text-uppercase">Profile</span>
+  <a href="{% url 'restaurant_account' %}" class="list-group-item">Meals</a>
+</div>
+
+<div class="text-center my-3 mx-3">
+  <a href="{% url 'restaurant_sign_out' %}" class="btn btn-warning btn-block">Log out</a>
+</div>
 
 {% endblock  %}

@@ -49,3 +49,28 @@ body {
 .sidebar > div:first-child > h6 {
   color: #f8f8f873;
 }
+
+/* SIDE BAR LIST*/
+.sidebar .list-group > span {
+  color: #ffffff66;
+  display: block;
+  margin-top: 20px;
+  padding: 20px 30px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.sidebar .list-group .list-group-item {
+  background-color: transparent;
+  color: #ffffff66;
+  border: 0;
+  padding-left: 60px;
+  padding-right: 30px;
+}
+
+.sidebar .list-group .list-group-item.active,
+.sidebar .list-group .list-group-item:focus,
+.sidebar .list-group .list-group-item:hover {
+  background-color: #097d53;
+  color: white;
+}
