@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
 from coreapp.forms import AccountForm, UserForm, RestaurantForm, MealForm
-from coreapp.models import Meal
+from coreapp.models import Meal, Order
 
 # Create your views here.
 def home(request):
@@ -101,7 +101,10 @@ def restaurant_edit_meal(request, meal_id):
 
 @login_required(login_url='/restaurant/sign_in/')
 def restaurant_order(request):
-  return render(request, 'restaurant/order.html', {})
+  orders = Order.objects.filter(restaurant = request.user.restaurant).order_by("-id")
+  return render(request, 'restaurant/order.html', {
+    "orders": orders
+  })
 
 @login_required(login_url='/restaurant/sign_in/')
 def restaurant_report(request):
