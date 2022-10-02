@@ -2,6 +2,11 @@
 
 {% block sidebar %}
 
+{% url 'restaurant_meal' as restaurant_meal_url %}
+{% url 'restaurant_order' as restaurant_order_url %}
+{% url 'restaurant_report' as restaurant_report_url %}
+{% url 'restaurant_account' as restaurant_account_url %}
+
 <div class="text-center mt-4">
   <img src="{{ request.user.restaurant.logo.url }}" class="rounded-circle" width="80" height="80" alt="">
   <br><br>
@@ -14,12 +19,13 @@
 <div class="list-group">
   <span class="text-uppercase">Dashboard</span>
 
-  <a href="{% url 'restaurant_meal' %}" class="list-group-item">Meals</a>
-  <a href="{% url 'restaurant_order' %}" class="list-group-item">Orders</a>
-  <a href="{% url 'restaurant_report' %}" class="list-group-item">Report</a>
+  <a href="{% url 'restaurant_meal' %}" 
+  class="list-group-item {% if request.path == restaurant_meal_url %} active {% endif %}">Meals</a>
+  <a href="{% url 'restaurant_order' %}" class="list-group-item {% if request.path == restaurant_order_url %} active {% endif %}">Orders</a>
+  <a href="{% url 'restaurant_report' %}" class="list-group-item {% if request.path == restaurant_report_url %} active {% endif %}">Report</a>
 
   <span class="text-uppercase">Profile</span>
-  <a href="{% url 'restaurant_account' %}" class="list-group-item">Account</a>
+  <a href="{% url 'restaurant_account' %}" class="list-group-item {% if request.path == restaurant_account_url %} active {% endif %}">Account</a>
 </div>
 
 <div class="text-center my-3 mx-3">
