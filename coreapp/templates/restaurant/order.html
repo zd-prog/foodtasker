@@ -20,6 +20,7 @@
               <th scope="col">Driver</th>
               <th scope="col">Total</th>
               <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -39,6 +40,15 @@
                 <td>{{order.driver}}</td>
                 <td class="text-right">${{order.total}}</td>
                 <td>{{order.get_status_display}}</td>
+                <td>
+                  {% if order.status == 1 %}
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <input name="id" value="{{order.id}}" hidden>
+                    <button class="btn btn-black btn-sm">Ready</button>
+                  </form>
+                  {% endif %}
+                </td>
               </tr>
             {% endfor %}
             
