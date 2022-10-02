@@ -27,7 +27,9 @@
             {% for meal in meals %}
               <tr class="align-middle">
                 <th scope="row">{{ meal.id }}</th>
-                <td>{{meal.name}}</td>
+                <td>
+                  <a href="{% url 'restaurant_edit_meal' meal.id %}">{{meal.name}}</a>
+                </td>
                 <td>{{meal.short_description}}</td>
                 <td class="text-right">${{meal.price}}</td>
                 <td class="text-center">
