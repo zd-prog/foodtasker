@@ -17,7 +17,7 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from coreapp import views
+from coreapp import views, apis
 
 urlpatterns = [
     # Web View - Admin
@@ -39,5 +39,8 @@ urlpatterns = [
     
     # APIs
     # /convert-token (sign-in/sign-up), /revoke-token (sign-out)
-    path('api/social/', include('rest_framework_social_oauth2.urls'))
+    path('api/social/', include('rest_framework_social_oauth2.urls')),
+
+    # APIS for CUSTOMERS
+    path('api/customer/restaurants/', apis.customer_get_restaurants)
 ]
