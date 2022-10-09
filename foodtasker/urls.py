@@ -42,5 +42,8 @@ urlpatterns = [
     path('api/social/', include('rest_framework_social_oauth2.urls')),
 
     # APIS for CUSTOMERS
-    path('api/customer/restaurants/', apis.customer_get_restaurants)
+    path('api/customer/restaurants/', apis.customer_get_restaurants),
+    path('api/customer/meals/<int:restaurant_id>', apis.customer_get_meals),
+    path('api/customer/order/add/', apis.customer_add_order),
+    path('api/customer/order/latest/', apis.customer_get_latest_order),
 ]
