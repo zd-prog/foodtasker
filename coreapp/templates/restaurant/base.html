@@ -1,5 +1,27 @@
 {% extends 'restaurant/layout.html' %}
 
+{% block script %}
+
+<script>
+  $(document).ready(function(){
+    var now = new Date();
+    setInterval(function(){
+      $.ajax({
+        url: '/api/restaurant/order/notification/' + now.toISOString() + '/',
+        method: 'GET',
+        success: function(data){
+          if (data['notification'] === 0 {
+            $('.badge').text('');
+          } else {
+            $('.badge').text(data['notification']);
+          })
+        }
+      })
+    }, 3000)
+  })
+</script>
+{% endblock %}
+
 {% block sidebar %}
 
 {% url 'restaurant_meal' as restaurant_meal_url %}
@@ -21,7 +43,10 @@
 
   <a href="{% url 'restaurant_meal' %}" 
   class="list-group-item {% if request.path == restaurant_meal_url %} active {% endif %}">Meals</a>
-  <a href="{% url 'restaurant_order' %}" class="list-group-item {% if request.path == restaurant_order_url %} active {% endif %}">Orders</a>
+  <a href="{% url 'restaurant_order' %}" class="list-group-item {% if request.path == restaurant_order_url %} active {% endif %}">
+    Orders
+    <span class="badge badge-warning ml-2"></span>
+  </a>
   <a href="{% url 'restaurant_report' %}" class="list-group-item {% if request.path == restaurant_report_url %} active {% endif %}">Report</a>
 
   <span class="text-uppercase">Profile</span>

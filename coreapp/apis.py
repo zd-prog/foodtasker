@@ -1,15 +1,28 @@
 import json
 from lib2to3.pgen2 import token
 from os import access
+from venv import create
 
 from django.http import JsonResponse
 from coreapp.models import OrderDetails, Restaurant, Meal, Order
-from coreapp.serializers import RestaurantSerializer, MealSerializer
+from coreapp.serializers import OrderSerializer, RestaurantSerializer, \
+MealSerializer, OrderStatusSerializer
 
 from django.utils import timezone
 from coreapp.views import restaurant_account
 from oauth2_provider.models import AccessToken
 from django.views.decorators.csrf import csrf_exempt
+
+# ========
+# RESTAURANT
+# ========
+
+def restaurant_order_notification(request, last_request_time):
+  notification = Order.objects.filter(
+    restaurant=request.user.restaurant, create_at__gt=last_request_time
+    ).count()
+
+  return JsonResponse({"notification": notification})
 
 # ========
 # CUSTOMER
@@ -96,4 +109,43 @@ def customer_add_order(request):
   return JsonResponse({})
 
 def customer_get_latest_order(request):
-  return JsonResponse({})
+  """
+    params:
+      1. access_token
+    return:
+      {JSON data with all details of an order}
+  """
+
+  access_token = AccessToken.objects.get(
+    token = request.POST.get("access_token"),
+    expires__gt = timezone.now()
+  )
+  customer = access_token.user.customer
+
+  order = OrderSerializer(
+    Order.objects.filter(customer=customer).last()
+  ).data
+  return JsonResponse({
+    "last_order": order
+  })
+
+def customer_get_latest_order_status(request):
+  """
+    params:
+      1. access_token
+    return:
+      {JSON data with all details of an order}
+  """
+
+  access_token = AccessToken.objects.get(
+    token = request.POST.get("access_token"),
+    expires__gt = timezone.now()
+  )
+  customer = access_token.user.customer
+
+  order_status = OrderStatusSerializer(
+    Order.objects.filter(customer=customer).last()
+  ).data
+  return JsonResponse({
+    "last_order_status": order_status
+  })
