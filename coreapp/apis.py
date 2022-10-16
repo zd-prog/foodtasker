@@ -164,8 +164,54 @@ def driver_get_ready_orders(request):
     "orders": orders
   })
 
-def driver_get_pick_order(request):
-  return JsonResponse({})
+@csrf_exempt
+def driver_pick_order(request):
+  """
+    params"
+      1. access_token
+      2. order_id
+    return:
+      {"status": "success"}
+  """
+
+  if request.method == "POST":
+    # Get access token
+    access_token = AccessToken.objects.get(token=request.POST.get("access_token"), 
+    expires__gt = timezone.now()
+    )
+
+    # Get driver
+    driver = access_token.user.driver
+
+    # Check if this driver still have an outstanding order
+    if Order.objects.filter(driver=driver, status=Order.ONTHEWAY):
+      return JsonResponse({
+        "status": "failed",
+        "error": "Your outstanding order is not delivered yet."
+      })
+
+    # Process the picking up order
+    try:
+      order = Order.objects.get(
+        id = request.POST["order_id"],
+        driver = None,
+        status = Order.READY
+      )
+
+      order.driver = driver
+      order.status = Order.ONTHEWAY
+      order.picked_at = timezone.now()
+      order.save()
+
+      return JsonResponse({
+        "status": "success"
+      })
+
+    except Order.DoesNotExist:
+      return JsonResponse({
+        "status": "failed",
+        "error": "This order has been picked up by another"
+      })
 
 def driver_get_latest_order(request):
   return JsonResponse({})
