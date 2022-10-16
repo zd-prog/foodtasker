@@ -2,6 +2,75 @@
 
 {% block title %} Report{% endblock %}
 
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+{% endblock  %}
+
 {% block body %}
-<h1>Restaurant - Report</h1>
+
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">This week's revenue</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="revenueChart" height="100"></canvas>
+          <script>
+          const ctx = document.getElementById('revenueChart').getContext('2d');
+          const revenueChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'San'],
+                  datasets: [{
+                      label: '$ Amount',
+                      data: [12, 19, 3, 5, 2, 3, 34],
+                      backgroundColor: [
+                          'rgba(75, 192, 192, 0.2)',
+                      ],
+                      borderColor: [
+                          'rgba(75, 192, 192, 1)',
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+          });
+          </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">This week's revenue</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="ordersChart" height="100"></canvas>
+          <script>
+          const ctx1 = document.getElementById('ordersChart').getContext('2d');
+          const ordersChart = new Chart(ctx1, {
+              type: 'line',
+              data: {
+                  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'San'],
+                  datasets: [{
+                      label: 'Orders',
+                      data: [12, 19, 3, 5, 2, 3, 34],
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                      ],
+                      borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+          });
+          </script>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
