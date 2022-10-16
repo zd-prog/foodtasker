@@ -151,7 +151,26 @@ def customer_get_latest_order_status(request):
   })
 
 def customer_get_driver_location(request):
-  return JsonResponse({})
+  access_token = AccessToken.objects.get(
+    token = request.GET.get("access_token"),
+    expires__gt = timezone.now()
+  )
+
+  customer = access_token.user.customer
+
+  current_order = Order.objects.filter(
+    customer=customer,
+    status = Order.ONTHEWAY
+  ).last()
+
+  if current_order:
+    location = current_order.driver.location
+  else:
+    location = None
+
+  return JsonResponse({
+    "location": location
+  })
 
 # ========
 # DRIVER
@@ -296,7 +315,26 @@ def driver_get_revenue(request):
   })
 
 def driver_update_location(request):
-  return JsonResponse({})
+  """
+    params:
+      1. access_token
+      2. location Ex: lat, lng
+    return:
+      {"status": "success"}
+  """
+  if request.method == "POST":
+    access_token = AccessToken.objects.get(
+      token = request.POST["access_token"],
+      expires__gt = timezone.now()
+    )
+
+    driver = access_token.user.driver
+    driver.location = request.POST["location"]
+    driver.save()
+
+  return JsonResponse({
+    "status": "success"
+  })
 
 def driver_get_profile(request):
   return JsonResponse({})
