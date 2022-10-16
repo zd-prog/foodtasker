@@ -214,7 +214,23 @@ def driver_pick_order(request):
       })
 
 def driver_get_latest_order(request):
-  return JsonResponse({})
+  # Get access_token
+  access_token = AccessToken.objects.get(
+    token=request.GET["access_token"],
+    expires__gt = timezone.now()
+  )
+
+  # Get Driver
+  driver = access_token.user.driver
+
+  # Get the latest order of this driver
+  order = OrderSerializer(
+    Order.objects.filter(driver=driver, status=Order.ONTHEWAY).last()
+  ).data
+
+  return JsonResponse({
+    "order": order
+  })
 
 def driver_complete_order(request):
   return JsonResponse({})
