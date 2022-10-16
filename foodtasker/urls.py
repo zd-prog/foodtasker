@@ -48,4 +48,11 @@ urlpatterns = [
     path('api/customer/order/add/', apis.customer_add_order),
     path('api/customer/order/latest/', apis.customer_get_latest_order),
     path('api/customer/order/latest_status/', apis.customer_get_latest_order_status),
+
+    # APIS for DRIVERS
+    path('api/driver/order/ready/', apis.driver_get_ready_orders),
+    path('api/driver/order/pick/', apis.driver_get_pick_order),
+    path('api/driver/order/latest/', apis.driver_get_latest_order),
+    path('api/driver/order/complete/', apis.driver_complete_order),
+    path('api/driver/revenue/', apis.driver_get_revenue),
 ]

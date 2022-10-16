@@ -149,3 +149,22 @@ def customer_get_latest_order_status(request):
   return JsonResponse({
     "last_order_status": order_status
   })
+
+# ========
+# DRIVER
+# ========
+
+def driver_get_ready_orders(request):
+  return JsonResponse({})
+
+def driver_get_pick_order(request):
+  return JsonResponse({})
+
+def driver_get_latest_order(request):
+  return JsonResponse({})
+
+def driver_complete_order(request):
+  return JsonResponse({})
+
+def driver_get_revenue(request):
+  return JsonResponse({})
