@@ -9,7 +9,7 @@
 {% block body %}
 
 <div class="row">
-  <div class="col-md-10 offset-md-1">
+  <div class="col-md-8">
     <div class="card shadow text-white mb-3 mt-5">
       <div class="card-header text-center">
         <h5 class="m-0 font-weight-bold text-black">This week's revenue</h5>
@@ -24,7 +24,7 @@
                   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'San'],
                   datasets: [{
                       label: '$ Amount',
-                      data: [12, 19, 3, 5, 2, 3, 34],
+                      data: {{revenue}},
                       backgroundColor: [
                           'rgba(75, 192, 192, 0.2)',
                       ],
@@ -39,10 +39,40 @@
       </div>
     </div>
   </div>
+
+  <div class="col-md-4">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">Top 3 Meals</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="mealsChart" height="100"></canvas>
+          <script>
+          const ctx2 = document.getElementById('mealsChart').getContext('2d');
+          const mealsChart = new Chart(ctx2, {
+              type: 'pie',
+              data: {
+                  labels: {{meal.labels | safe}},
+                  datasets: [{
+                      label: '$ Amount',
+                      data: {{meal.data}},
+                      backgroundColor: [
+                          'rgba(255, 99, 132)',
+                          'rgba(54, 162, 235)',
+                          'rgba(255, 205, 86)'
+                      ],
+                      hoverOffset: 4
+                  }]
+              },
+          });
+          </script>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-10 offset-md-1">
+  <div class="col-md-8">
     <div class="card shadow text-white mb-3 mt-5">
       <div class="card-header text-center">
         <h5 class="m-0 font-weight-bold text-black">This week's revenue</h5>
@@ -57,7 +87,7 @@
                   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'San'],
                   datasets: [{
                       label: 'Orders',
-                      data: [12, 19, 3, 5, 2, 3, 34],
+                      data: {{orders}},
                       backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
                       ],
@@ -65,6 +95,36 @@
                           'rgba(255, 99, 132, 1)',
                       ],
                       borderWidth: 1
+                  }]
+              },
+          });
+          </script>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card shadow text-white mb-3 mt-5">
+      <div class="card-header text-center">
+        <h5 class="m-0 font-weight-bold text-black">Top 3 Drivers</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="driversChart" height="100"></canvas>
+          <script>
+          const ctx3 = document.getElementById('driversChart').getContext('2d');
+          const driversChart = new Chart(ctx3, {
+              type: 'pie',
+              data: {
+                  labels: {{driver.labels | safe}},
+                  datasets: [{
+                      label: '$ Amount',
+                      data: {{driver.data}},
+                      backgroundColor: [
+                          'rgba(255, 99, 132)',
+                          'rgba(54, 162, 235)',
+                          'rgba(255, 205, 86)'
+                      ],
+                      hoverOffset: 4
                   }]
               },
           });
