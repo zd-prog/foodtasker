@@ -30,7 +30,6 @@ urlpatterns = [
     path('restaurant/sign_up', views.restaurant_sign_up, name='restaurant_sign_up'),
     path('restaurant/', views.restaurant_home, name='restaurant_home'),
 
-    """
     path('restaurant/account/', views.restaurant_account, name='restaurant_account'),
     path('restaurant/meal/', views.restaurant_meal, name='restaurant_meal'),
     path('restaurant/meal/add', views.restaurant_add_meal, name='restaurant_add_meal'),
@@ -61,5 +60,4 @@ urlpatterns = [
     path('api/driver/location/update/', apis.driver_update_location),
     path('api/driver/profile/', apis.driver_get_profile),
     path('api/driver/profile/update', apis.driver_update_profile),
-    """
 ]
