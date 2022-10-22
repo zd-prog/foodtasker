@@ -1,3 +1,4 @@
+from http import client
 import json
 from lib2to3.pgen2 import token
 from os import access
@@ -12,6 +13,11 @@ from django.utils import timezone
 from coreapp.views import restaurant_account
 from oauth2_provider.models import AccessToken
 from django.views.decorators.csrf import csrf_exempt
+
+import stripe
+from foodtasker.settings import STRIPE_API_KEY
+
+stripe.api_key = STRIPE_API_KEY
 
 # ========
 # RESTAURANT
@@ -171,6 +177,44 @@ def customer_get_driver_location(request):
   return JsonResponse({
     "location": location
   })
+
+@csrf_exempt
+def create_payment_intent(request):
+  """
+    params:
+      1. access_token
+      2. total
+    return:
+      {"client_secret": client_secret}
+  """
+
+  # Get access token
+  access_token = AccessToken.objects.get(token=request.POST["access_token"], 
+    expires__gt = timezone.now()
+  )
+  
+  # Get the order's total amount
+  total = request.POST["total"]
+
+  if request.method == "POST": 
+    if access_token:
+      # Create a Payment Intent: this will create a client secret and return it to Mobile app
+      try:
+        intent = stripe.PaymentIntent.create(
+          amount = int(total) * 100, # Amount in cents
+          currency = 'aud',
+          description = "FoodTasker Order"
+        )
+
+        if intent:
+          client_secret = intent.client_secret
+          return JsonResponse({"client_secret": client_secret})
+      except stripe.error.StripeError as e:
+        return JsonResponse({"status": "failed", "error": str(e)})
+      except Exception as e:
+        return JsonResponse({"status": "failed", "error": str(e)})
+
+    return JsonResponse({"status": "failed", "error": "Failed to create Payment Intent"})
 
 # ========
 # DRIVER
