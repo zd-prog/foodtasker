@@ -3,7 +3,7 @@ import imp
 from lib2to3.pgen2 import driver
 from random import choices
 from time import time
-from tkinter import CASCADE
+from django.db.models.deletion import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
