@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'coreapp',
     'cloudinary',
-    'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
     'bootstrap4',
