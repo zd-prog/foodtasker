@@ -24,7 +24,7 @@ def restaurant_sign_up(request):
     restaurant_form = RestaurantForm(request.POST, request.FILES)
 
     if user_form.is_valid() and restaurant_form.is_valid():
-      new_user = User.objects.create_iser(**user_form.cleaned_data)
+      new_user = User.objects.create_user(**user_form.cleaned_data)
       new_restaurant = restaurant_form.save(commit=False)
       new_restaurant.user = new_user
       new_restaurant.save()
