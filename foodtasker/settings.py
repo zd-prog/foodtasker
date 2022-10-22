@@ -174,6 +174,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
+
+STRIPE_API_KEY = 'sk_test_51Lvmj4BTpMiI85dLfoAv6hIvlDGZeXSiHNC7dmErWNN3nInYXxndBbVSKN1FXdvmFh4wcXDJCn2v04N1846BCeAY00QbjIY4Kv'
+
 # Configure Heroku
 import django_on_heroku
 django_on_heroku.settings(locals())
